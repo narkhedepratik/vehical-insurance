@@ -1,0 +1,50 @@
+:root {
+    --header-bg:#3FA2F6;
+    --body-bg:#B7E0FF;
+    --btn-bg:white;
+    --heading-text:white;
+    --btn-text:#black;
+
+}
+
+.header-nav{
+    background-color: var(--header-bg);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    
+
+}
+.header-nav h1{
+    color: var(--heading-text);
+    font-size: x-large;
+    margin-left: 50px;
+    font-family: 'Times New Roman', Times, serif;
+   
+}
+.header-nav div{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+}
+
+.header-nav .header-btn{
+    
+    background-color: var(--btn-bg);
+    width: 120px;
+    border: 1px black groove;
+    height: 40px;
+    border-radius: 20px;
+    color: var(--btn-text);
+    text-align: center;
+    text-decoration: none;
+    padding-top: 5px;
+    
+}
+.templates{
+    background-image: url('../../public//assets//images/car-commun-.png');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
