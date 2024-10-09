@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import '../style/SignIn.css'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 function SignIn() {
 
@@ -14,7 +14,11 @@ function SignIn() {
         .then(res=>{
           if(res.status===200)
           {
-              navigate('/drive-safe')
+     
+           let userJson= JSON.stringify(res.data);
+           
+            localStorage.setItem('user',userJson);
+             navigate('/drive-safe')
           }
         
         }

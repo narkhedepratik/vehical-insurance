@@ -1,8 +1,12 @@
 import React from 'react'
+import ProfileNav from './ProfileNav'
 
 function DashBoard() {
   return (
-    <div>DashBoard</div>
+    <div>
+
+         <ProfileNav/>
+    </div>
   )
 }
 
