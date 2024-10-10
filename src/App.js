@@ -13,7 +13,7 @@ function App() {
            <Routes>
                <Route path='/' element={<Navigate to={'/home'}/>}/>
                <Route path='/home/*' element={<Home/>}/>
-               <Route path='/drive-safe' element={<DashBoard/>}/>
+               <Route path='/drive-safe/*' element={<DashBoard/>}/>
               
            </Routes>
        </BrowserRouter>

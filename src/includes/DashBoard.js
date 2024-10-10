@@ -1,11 +1,61 @@
 import React from 'react'
 import ProfileNav from './ProfileNav'
+import SideNav from './SideNav'
+import AddEmployee from '../modules/adminservice/AddEmployee';
+import ViewEmployee from '../modules/adminservice/ViewEmployee';
+import AddServiceCenter from '../modules/adminservice/AddServiceCenter';
+import ViewServiceSenters from '../modules/adminservice/ViewServiceSenters';
+import AppStatastics from '../modules/adminservice/AppStatastics';
+import { Route, Routes } from 'react-router-dom';
+import AddCustomer from '../modules/crm/AddCustomer';
+import ViewCustomers from '../modules/crm/ViewCustomers';
+import DueCustomer from '../modules/crm/DueCustomer';
 
 function DashBoard() {
+
+       let userJson=localStorage.getItem('user');
+           
+       const {userType}    =JSON.parse(userJson);
+
+          const appRoutes={
+               ADMIN:[
+                   {mappingPath:'add-employee',component:<AddEmployee/>},
+                   {mappingPath:'view-employee',component:<ViewEmployee/>},
+                   {mappingPath:'add-servicecenter', component:<AddServiceCenter/>},
+                   {mappingPath:'show-servicecenter',component:<ViewServiceSenters/>},
+                   {mappingPath:'app-statastics' ,component:<AppStatastics/>},
+                   {mappingPath:'edit-employee/:employeeId' ,component:<AddEmployee/>}
+
+               ],
+               CRM:[
+                {mappingPath:'add-customer' ,component:<AddCustomer/>},
+                {mappingPath:'view-customers' ,component:<ViewCustomers/>},
+                {mappingPath:'due-customer' ,component:<DueCustomer/>}
+               ]
+          }
+
   return (
     <div>
 
          <ProfileNav/>
+       
+         <div className='row w-100'>
+          <div className='col col-3'>
+          <SideNav/>
+          </div>
+          <div className='col col-9 border border-dark mt-1'>
+              <Routes>
+              {
+                appRoutes[userType].map((info,index)=> 
+               
+                          <Route path={info.mappingPath} element={info.component}/>)
+              
+                
+              }
+              </Routes>    
+          </div>
+            
+         </div>
     </div>
   )
 }
