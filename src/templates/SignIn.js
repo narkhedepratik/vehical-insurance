@@ -8,16 +8,17 @@ function SignIn() {
 
   const { register, handleSubmit } = useForm();  
        const navigate=useNavigate();
-  let baseUrl='http://localhost:9095/employee_details/employee/'
+  let baseUrl='http://localhost:8081/getEmployeeByUsernameAndPassword/'
   const onLogin = auth => {
         axios.get(baseUrl+auth.username+'/'+auth.password)
         .then(res=>{
-          if(res.status===200)
+          if(res.status===201)
           {
      
            let userJson= JSON.stringify(res.data);
            
             localStorage.setItem('user',userJson);
+            alert("Hello")
              navigate('/drive-safe')
           }
         

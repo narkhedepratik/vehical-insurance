@@ -13,7 +13,7 @@ function ProfileNav() {
          <img src={'data:image/jpeg;base64,'+user.employeeImage} className='profile-img me-4' alt='Image not available'/>
          <div>
          <h1 className='text-white fs-3'>{user.username}</h1>
-         <h3 className='text-warning fs-4'>{user.userType}</h3>
+         <h3 className='text-warning fs-4'>{user.employeeDesignation}</h3>
          </div>
        </div>
        <div>

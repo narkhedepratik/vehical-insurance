@@ -15,7 +15,7 @@ function DashBoard() {
 
        let userJson=localStorage.getItem('user');
            
-       const {userType}    =JSON.parse(userJson);
+       const {employeeDesignation}    =JSON.parse(userJson);
 
           const appRoutes={
                ADMIN:[
@@ -46,7 +46,7 @@ function DashBoard() {
           <div className='col col-9 border border-dark mt-1'>
               <Routes>
               {
-                appRoutes[userType].map((info,index)=> 
+                appRoutes[employeeDesignation].map((info,index)=> 
                
                           <Route path={info.mappingPath} element={info.component}/>)
               
