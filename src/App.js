@@ -6,6 +6,9 @@ import './App.css';
 import Home from './includes/Home';
 import DashBoard from './includes/DashBoard';
 
+import AddServiceCenter from './modules/adminservice/AddServiceCenter';
+import AddCustomer from './modules/crm/AddCustomer';
+
 function App() {
   return (
     <div className="App">
@@ -14,6 +17,9 @@ function App() {
                <Route path='/' element={<Navigate to={'/home'}/>}/>
                <Route path='/home/*' element={<Home/>}/>
                <Route path='/drive-safe/*' element={<DashBoard/>}/>
+               <Route path="/edit/:serviceCenterId" element={<AddServiceCenter />} />
+               <Route path='/drive-safe/* ' element={<AddCustomer/>}/>
+
               
            </Routes>
        </BrowserRouter>

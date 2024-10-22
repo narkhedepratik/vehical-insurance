@@ -18,10 +18,11 @@ function SideNav() {
         CRM:[
              {lable:'Add Customer' ,path:'add-customer'},
              {lable:'View Customers', path:'view-customers'},
-             {lable:'Show Due Customer' ,path:'due-customer'}
+             {lable:'View  Single Customer' ,path:'single-customer'}
         ],
         AGENT:[
-
+             {lable:'Claim Form',path:'claim-form'},
+             {lable:'View Claims',path:'view-claim'}
         ]
     }
   return (

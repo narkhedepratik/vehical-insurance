@@ -1,16 +1,20 @@
+
+
+
 import React from 'react'
 import ProfileNav from './ProfileNav'
 import SideNav from './SideNav'
 import AddEmployee from '../modules/adminservice/AddEmployee';
 import ViewEmployee from '../modules/adminservice/ViewEmployee';
 import AddServiceCenter from '../modules/adminservice/AddServiceCenter';
-import ViewServiceSenters from '../modules/adminservice/ViewServiceSenters';
+import ViewServiceSenters from '../modules/adminservice/ViewServiceCenters';
 import AppStatastics from '../modules/adminservice/AppStatastics';
 import { Route, Routes } from 'react-router-dom';
 import AddCustomer from '../modules/crm/AddCustomer';
 import ViewCustomers from '../modules/crm/ViewCustomers';
-import DueCustomer from '../modules/crm/DueCustomer';
 
+import ClaimForm from '../modules/agent/ClaimForm';
+import ViewClaims from '../modules/agent/ViewClaims';
 function DashBoard() {
 
        let userJson=localStorage.getItem('user');
@@ -28,10 +32,18 @@ function DashBoard() {
 
                ],
                CRM:[
-                {mappingPath:'add-customer' ,component:<AddCustomer/>},
+                {mappingPath:'add-customer' ,component:<AddCustomer />},
                 {mappingPath:'view-customers' ,component:<ViewCustomers/>},
-                {mappingPath:'due-customer' ,component:<DueCustomer/>}
+                {mappingPath:'single-customer' ,component:<AddServiceCenter/>}
+                
+               ],
+               AGENT:[
+                {mappingPath:'claim-form',component:<ClaimForm/>},
+                {mappingPath:'view-claim',component:<ViewClaims/>},
+
+
                ]
+
           }
 
   return (
@@ -44,11 +56,12 @@ function DashBoard() {
           <SideNav/>
           </div>
           <div className='col col-9 border border-dark mt-1'>
+
               <Routes>
               {
                 appRoutes[employeeDesignation].map((info,index)=> 
                
-                          <Route path={info.mappingPath} element={info.component}/>)
+                          <Route key={index} path={info.mappingPath} element={info.component}/>)
               
                 
               }
@@ -60,4 +73,4 @@ function DashBoard() {
   )
 }
 
-export default DashBoard
+export default DashBoard;
