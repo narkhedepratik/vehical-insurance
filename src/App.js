@@ -19,6 +19,7 @@ function App() {
                <Route path='/drive-safe/*' element={<DashBoard/>}/>
                <Route path="/edit/:serviceCenterId" element={<AddServiceCenter />} />
                <Route path='/drive-safe/* ' element={<AddCustomer/>}/>
+               <Route path='/editcus/:customerId' element={<AddCustomer/>}/>
 
               
            </Routes>

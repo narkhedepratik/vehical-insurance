@@ -1,28 +1,31 @@
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function AddServiceCenter() {
     const [step, setStep] = useState(1);
-    const navigate = useNavigate();
-    const { serviceCenterId } = useParams(); 
-    const { register, handleSubmit, control, setValue, formState: { errors } } = useForm();
+    const { serviceCenterId } = useParams();
+    const { register, handleSubmit, control, setValue, formState: { errors}, watch } = useForm({
+        mode: 'all', // Validate on each change
+        defaultValues: {
+            accountDetails: [{}] // Ensure at least one account field is present
+        }
+    });
     const { fields, append, remove } = useFieldArray({
         control,
         name: "accountDetails",
     });
+
     useEffect(() => {
         if (serviceCenterId) {
             axios.get(`http://localhost:8081/getSingleServiceCenter/${serviceCenterId}`)
                 .then(response => {
-                    console.log("Fetched service center data:", response.data);
                     const data = response.data;
                     setValue("serviceCenterName", data.serviceCenterName);
                     setValue("serviceCenterAddress", data.serviceCenterAddress);
                     setValue("serviceCenterContactNumber", data.serviceCenterContactNumber);
                    
-                    
                     if (Array.isArray(data.accountDetails)) {
                         data.accountDetails.forEach(account => {
                             append(account);
@@ -35,13 +38,25 @@ function AddServiceCenter() {
                     console.error("Failed to fetch service center data", error);
                     alert("Failed to fetch service center data.");
                 });
-
         }
-
     }, [serviceCenterId, append, setValue]);
-    
 
-    const onNext = () => setStep(step => (step + 1 <= 2 ? step + 1 : 2));
+    const onNext = () => {
+        // Check if the current step's inputs are valid before proceeding
+        if (step === 1) {
+            const requiredFields = ["serviceCenterName", "serviceCenterAddress", "serviceCenterContactNumber"];
+            const isValidStepOne = requiredFields.every(field => watch(field) !== "");
+            if (isValidStepOne) {
+                setStep(step + 1);
+            } else {
+                alert("Please fill in all required fields before proceeding.");
+            }
+        } else if (step === 2) {
+            // Additional logic for validation in step 2 if needed
+            setStep(step + 1);
+        }
+    };
+
     const onPrevious = () => setStep(step => (step - 1 >= 1 ? step - 1 : 1));
 
     const onSave = (data) => {
@@ -56,9 +71,8 @@ function AddServiceCenter() {
         axios.post('http://localhost:8081/saveservicecenter', serviceCenter)
             .then(res => {
                 if (res.status === 201) {
-                    alert("Service center added successfully!");
-          
                     
+                    alert("Service center added successfully!");
                 }
             })
             .catch(error => {
@@ -72,7 +86,6 @@ function AddServiceCenter() {
             .then(res => {
                 if (res.status === 200) {
                     alert("Service center updated successfully!");
-                   
                 }
             })
             .catch(error => {
@@ -93,16 +106,31 @@ function AddServiceCenter() {
                                     <h2>{serviceCenterId ? "Edit Service Center Details" : "Add Service Center Details"}</h2>
                                     <div>
                                         <label>Service Center Name:</label>
-                                        <input type="text" {...register("serviceCenterName", { required: true })} placeholder="Service Center Name" className="form-control" />
-                                        {errors.serviceCenterName && <span>This field is required</span>}
+                                        <input
+                                            type="text"
+                                            {...register("serviceCenterName", { required: 'Service Center Name is required' })}
+                                            placeholder="Service Center Name"
+                                            className="form-control"
+                                        />
+                                        {errors.serviceCenterName && <span className="text-danger">{errors.serviceCenterName.message}</span>}
                                         <br />
                                         <label>Service Center Address:</label>
-                                        <input type="text" {...register("serviceCenterAddress", { required: true })} placeholder="Service Center Address" className="form-control" />
-                                        {errors.serviceCenterAddress && <span>This field is required</span>}
+                                        <input
+                                            type="text"
+                                            {...register("serviceCenterAddress", { required: 'Service Center Address is required' })}
+                                            placeholder="Service Center Address"
+                                            className="form-control"
+                                        />
+                                        {errors.serviceCenterAddress && <span className="text-danger">{errors.serviceCenterAddress.message}</span>}
                                         <br />
                                         <label>Service Center Contact Number:</label>
-                                        <input type="text" {...register("serviceCenterContactNumber", { required: true })} placeholder="Service Center Contact Number" className="form-control" />
-                                        {errors.serviceCenterContactNumber && <span>This field is required</span>}
+                                        <input
+                                            type="text"
+                                            {...register("serviceCenterContactNumber", { required: 'Service Center Contact Number is required' })}
+                                            placeholder="Service Center Contact Number"
+                                            className="form-control"
+                                        />
+                                        {errors.serviceCenterContactNumber && <span className="text-danger">{errors.serviceCenterContactNumber.message}</span>}
                                         <br />
                                     </div>
                                 </div>
@@ -117,42 +145,42 @@ function AddServiceCenter() {
                                             <label>Account Holder Name:</label>
                                             <input
                                                 type="text"
-                                                {...register(`accountDetails.${index}.accountHolderName`, { required: true })}
+                                                {...register(`accountDetails.${index}.accountHolderName`, { required: 'Account Holder Name is required' })}
                                                 className="form-control"
                                             />
-                                            {errors.accountDetails?.[index]?.accountHolderName && <span>This field is required</span>}
+                                            {errors.accountDetails?.[index]?.accountHolderName && <span className="text-danger">{errors.accountDetails[index].accountHolderName.message}</span>}
                                             <br />
                                             <label>Account Holder Address:</label>
                                             <input
                                                 type='text'
-                                                {...register(`accountDetails.${index}.accountHolderAddress`, { required: true })}
+                                                {...register(`accountDetails.${index}.accountHolderAddress`, { required: 'Account Holder Address is required' })}
                                                 className="form-control"
                                             />
-                                            {errors.accountDetails?.[index]?.accountHolderAddress && <span>This field is required</span>}
+                                            {errors.accountDetails?.[index]?.accountHolderAddress && <span className="text-danger">{errors.accountDetails[index].accountHolderAddress.message}</span>}
                                             <br />
                                             <label>Account Type:</label>
                                             <input
                                                 type='text'
-                                                {...register(`accountDetails.${index}.accountType`, { required: true })}
+                                                {...register(`accountDetails.${index}.accountType`, { required: 'Account Type is required' })}
                                                 className="form-control"
                                             />
-                                            {errors.accountDetails?.[index]?.accountType && <span>This field is required</span>}
+                                            {errors.accountDetails?.[index]?.accountType && <span className="text-danger">{errors.accountDetails[index].accountType.message}</span>}
                                             <br />
                                             <label>Account Number:</label>
                                             <input
                                                 type='text'
-                                                {...register(`accountDetails.${index}.accountNumber`, { required: true })}
+                                                {...register(`accountDetails.${index}.accountNumber`, { required: 'Account Number is required' })}
                                                 className="form-control"
                                             />
-                                            {errors.accountDetails?.[index]?.accountNumber && <span>This field is required</span>}
+                                            {errors.accountDetails?.[index]?.accountNumber && <span className="text-danger">{errors.accountDetails[index].accountNumber.message}</span>}
                                             <br />
                                             <label>Account IFSC Number:</label>
                                             <input
                                                 type='text'
-                                                {...register(`accountDetails.${index}.accountIfscNumber`, { required: true })}
+                                                {...register(`accountDetails.${index}.accountIfscNumber`, { required: 'Account IFSC Number is required' })}
                                                 className="form-control"
                                             />
-                                            {errors.accountDetails?.[index]?.accountIfscNumber && <span>This field is required</span>}
+                                            {errors.accountDetails?.[index]?.accountIfscNumber && <span className="text-danger">{errors.accountDetails[index].accountIfscNumber.message}</span>}
                                             <br />
                                             <button type="button" className='btn btn-danger' onClick={() => remove(index)}>Remove Account</button>
                                         </div>
