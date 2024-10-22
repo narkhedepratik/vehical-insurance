@@ -1,6 +1,4 @@
 
-
-
 import React from 'react'
 import ProfileNav from './ProfileNav'
 import SideNav from './SideNav'
@@ -38,9 +36,9 @@ function DashBoard() {
                 
                ],
                AGENT:[
-                {mappingPath:'claim-form',component:<ClaimForm/>},
-                {mappingPath:'view-claim',component:<ViewClaims/>},
-
+                {mappingPath:'claim-form' ,component:<ClaimForm/>},
+                {mappingPath:'view-claim' ,component:<ViewClaims/>},
+                {mappingPath:'editClaim/:claimId' ,component:<ClaimForm/>}
 
                ]
 
@@ -63,7 +61,6 @@ function DashBoard() {
                
                           <Route key={index} path={info.mappingPath} element={info.component}/>)
               
-                
               }
               </Routes>    
           </div>
