@@ -57,7 +57,7 @@
 }
 .best-for-you-container {
     padding: 20px;
-    background-color: #f9f9f9;
+    
   }
   
   .best-description {
@@ -72,7 +72,7 @@
   }
   
   .best-card {
-    flex: 1 1 30%; /* Adjust as necessary */
+    flex: 1 1 30%; 
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useForm, useFieldArray, set } from 'react-hook-form';
+import { useForm, useFieldArray} from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from 'react-router-dom';
 
@@ -170,6 +170,7 @@ function AddCustomer() {
             </div>
           </>
         )}
+
 
         {step === 2 && (
           <>

@@ -1,6 +1,4 @@
 
-
-
 import React from 'react'
 import ProfileNav from './ProfileNav'
 import SideNav from './SideNav'
@@ -27,20 +25,20 @@ function DashBoard() {
                    {mappingPath:'view-employee',component:<ViewEmployee/>},
                    {mappingPath:'add-servicecenter', component:<AddServiceCenter/>},
                    {mappingPath:'show-servicecenter',component:<ViewServiceSenters/>},
-                   {mappingPath:'app-statastics' ,component:<AppStatastics/>},
+                   //{mappingPath:'app-statastics' ,component:<AppStatastics/>},
                    {mappingPath:'edit-employee/:employeeId' ,component:<AddEmployee/>}
 
                ],
                CRM:[
                 {mappingPath:'add-customer' ,component:<AddCustomer />},
                 {mappingPath:'view-customers' ,component:<ViewCustomers/>},
-                {mappingPath:'single-customer' ,component:<AddServiceCenter/>}
+              //  {mappingPath:'single-customer' ,component:<AddServiceCenter/>}
                 
                ],
                AGENT:[
-                {mappingPath:'claim-form',component:<ClaimForm/>},
-                {mappingPath:'view-claim',component:<ViewClaims/>},
-
+                {mappingPath:'claim-form' ,component:<ClaimForm/>},
+                {mappingPath:'view-claim' ,component:<ViewClaims/>},
+                {mappingPath:'editClaim/:claimId' ,component:<ClaimForm/>}
 
                ]
 
@@ -63,7 +61,6 @@ function DashBoard() {
                
                           <Route key={index} path={info.mappingPath} element={info.component}/>)
               
-                
               }
               </Routes>    
           </div>

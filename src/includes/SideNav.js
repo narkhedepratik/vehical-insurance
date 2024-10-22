@@ -13,12 +13,12 @@ function SideNav() {
               {lable:'View Employees' ,path:'view-employee'},
               {lable:'New Servicecenter' ,path:'add-servicecenter'},
               {lable:'Show Servicecenters' ,path:'show-servicecenter'},
-              {lable:'App Statastics' ,path:'app-statastics'}       
+             // {lable:'App Statastics' ,path:'app-statastics'}       
         ],
         CRM:[
              {lable:'Add Customer' ,path:'add-customer'},
              {lable:'View Customers', path:'view-customers'},
-             {lable:'View  Single Customer' ,path:'single-customer'}
+             //{lable:'View  Single Customer' ,path:'single-customer'}
         ],
         AGENT:[
              {lable:'Claim Form',path:'claim-form'},
